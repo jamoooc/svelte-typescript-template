@@ -1,0 +1,194 @@
+html,
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  color: #333;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+li,
+em,
+label,
+input,
+textarea {
+  color: rgb(93, 93, 93);
+}
+
+.link {
+  color: rgba(79, 100, 119, 0.8);
+}
+
+a {
+  color: rgb(93, 93, 93);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: rgba(231, 89, 0, 0.5);
+  transition: color 0.4s;
+}
+
+
+
+/* icons */
+
+
+
+.icon_foreground {
+  fill: rgb(93, 93, 93); /* 58595b */
+}
+
+.icon_background {
+  fill: #fff;
+}
+
+.icon_logo {
+  fill: rgb(93, 93, 93);
+  width: 30pt;
+  height: 30pt;
+}
+
+/* error message */
+
+.error_message {
+  margin: 0 0 0 1rem;
+  color: rgb(224, 127, 127);
+}
+
+/* form  */
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+input,
+button,
+select,
+textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.4em;
+  margin: 0 0 0.5em 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+textarea {
+  height: 20vh;
+}
+
+input:disabled {
+  color: #ccc;
+}
+
+button {
+  color: #333;
+  background-color: #f4f4f4;
+  outline: none;
+}
+
+button:disabled {
+  color: #999;
+}
+
+button:not(:disabled):active {
+  background-color: #ddd;
+}
+
+button:focus {
+  border-color: #666;
+}
+
+/* style logo and media icons on hover */
+
+.logo_container:hover .icon_logo,
+.media_button:hover .icon_foreground {
+  fill: rgba(231, 89, 0, 0.5);
+  transition: fill 0.4s;
+}
+
+/* responsive */
+
+/* extra small device up to 575.98px */
+
+@media (max-width: 575.98px)  {
+  .content_container {
+    padding: 0 10vw 5vw 10vw;
+  }
+  .gallery_container {
+    margin: 0 0 0 0
+  }
+}  
+
+/* small device 576 to 767.98 */
+
+@media (min-width: 576px) and (max-width: 767.98px)  {
+  .content_container {
+    padding: 0 10vw 5vw 10vw;
+  }
+  .gallery_container {
+    margin: 0 2.5vw 0 2.5vw
+  }
+}
+
+/* medium device 768px to 991.98px */
+
+@media (min-width: 768px) and (max-width: 991.98px)  {
+  .content_container {
+    padding: 0 12.5vw 5vw 12.5vw;
+  }
+  .gallery_container {
+    margin: 0 5vw 0 5vw
+  }
+}
+
+/* large device 992px to 1199.98 */
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .content_container {
+    padding: 0 15vw 5vw 15vw;
+  }
+  .gallery_container {
+    margin: 0 2.5vw 0 2.5vw
+  }
+}
+
+/* extra large device >= 1200px */
+
+@media(min-width: 1200px) and (max-width: 1499.98px) {
+  .content_container {
+    padding: 0 20vw 5vw 20vw;
+  }
+  .gallery_container {
+    margin: 0 5vw 0 5vw
+  }
+}
+
+/* devices > 1500px */
+
+@media(min-width: 1500px) {
+  .content_container {
+    padding: 0 25vw 5vw 25vw;
+  }
+  .gallery_container {
+    margin: 0 7vw 0 7vw
+  }
+}
