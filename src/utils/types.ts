@@ -13,3 +13,14 @@ export type ImageSrcSet = {
 export type Biography = { 
   text: string; 
 }
+
+export type RepertoireItem = {
+  role: string; 
+  title: string;
+}
+
+export type Repertoire = {
+  opera: RepertoireItem[] | null
+  concert: RepertoireItem[] | null
+  surname: string;
+}
