@@ -1,7 +1,7 @@
 <script lang='ts'>
   
   import Loading from "../components/Loading.svelte";
-  import ErrorPage from "../components/Error.svelte"
+  import Error from "../components/Error.svelte"
   import fetchData from "../utils/fetchData";
   import { onMount } from 'svelte';
   import type { Biography, ImageSrcSet } from '../utils/types';
@@ -48,7 +48,7 @@
     </p>
 
   {:catch error}
-    <ErrorPage {error} />
+    <Error {error} />
   {/await}
 </div>
   
