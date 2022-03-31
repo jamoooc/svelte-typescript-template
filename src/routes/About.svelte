@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
   
   import Loading from "../components/Loading.svelte";
   import Error from "../components/Error.svelte"

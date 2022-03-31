@@ -1,12 +1,13 @@
 <script lang="ts">
 
 	import { Router, Route } from "svelte-routing";
-  import { home } from "./utils/data";
+	import { home } from "./utils/data";
 
-  import Home from "./routes/Home.svelte";
-  import About from "./routes/About.svelte";
-  import Footer from "./components/Footer.svelte";
-  import Navigation from "./components/Navigation.svelte";
+	import Home from "./routes/Home.svelte";
+	import About from "./routes/About.svelte";
+	import Footer from "./components/Footer.svelte";
+	import Navigation from "./components/Navigation.svelte";
+	import Repertoire from "./routes/Repertoire.svelte";
 
 	export let url: string = '';
 
@@ -22,6 +23,7 @@
       <div class="page-container">
         <Navigation />
         <Route path="about" component="{About}" />
+        <Route path="repertoire" component="{Repertoire}" />
         <Route path="/" component="{Home}" />
       </div>
       <Footer />

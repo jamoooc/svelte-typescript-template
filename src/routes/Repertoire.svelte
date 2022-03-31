@@ -1,61 +1,51 @@
-<script>
+<script lang="ts">
   
   import Loading from "../components/Loading.svelte";
-  import Error from '../components/Error.svelte'
+  import Error from '../components/Error.svelte';
   import RepertoireItem from "../components/RepertoireItem.svelte";
-  import fetchData from '../utils/fetchData.js'
-  import { repertoire } from "../components/stores.js"
+  import fetchData from '../utils/fetchData.js';
   import { onMount } from "svelte";
-  import { hostname } from '../utils/hostname.js';
+  import type { Repertoire } from '../utils/types';
 
-  // let data;
+  let repertoire: Promise<Repertoire[]>;
 
-  // onMount(async () => {
-  //   try {
-  //     if (!$repertoire.length) {
-  //       data = await fetchData(hostname, __myapp.env.GET_REPERTOIRE_PAGE, null, repertoire);
-  //     } else {
-  //       data = $repertoire
-  //     }
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // })
+  onMount(async () => {
+    repertoire = fetchData<Repertoire[]>(`${process.env.GET_REPERTOIRE}`);
+  })
 
 </script>
 
 <div class="content_container"> 
   <h1>Repertoire</h1>
-  <!-- {#await data}
+  {#await repertoire}
     <Loading />
-  {:then resolved}
+  {:then repertoireItems}
     <div class="column_container">
-      {#if resolved}
+      {#if repertoireItems}
+
         <ul class="left_column">
           <h2>Opera</h2>
-          {#each resolved as composer}
+          {#each repertoireItems as composer}
             {#if composer.opera}    
               <RepertoireItem surname={composer.surname} works={composer.opera} />
             {/if}
           {/each}
         </ul>
+
         <ul class="right_column">
           <h2>Concert</h2>
-          {#each resolved as composer}
+          {#each repertoireItems as composer}
             {#if composer.concert}    
               <RepertoireItem surname={composer.surname} works={composer.concert} />
             {/if}
           {/each}
         </ul>
-      {:else}
-        <h3>
-          No repertoire found.
-        </h3>
+
       {/if}
     </div>
   {:catch error}
     <Error {error} />
-  {/await} -->
+  {/await}
 </div>
 
 <style>
@@ -70,11 +60,6 @@
 
   .right_column {
     margin-top: 0;
-  }
-  
-  h3 {
-    font-weight: normal;
-    margin: 0;
   }
 
   /* all devices > 768px */
