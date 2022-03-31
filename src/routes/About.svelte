@@ -1,47 +1,37 @@
 <script lang='ts'>
   
   import Loading from "../components/Loading.svelte";
-  import Error from "../components/Error.svelte"
+  import ErrorPage from "../components/Error.svelte"
+  import fetchData from "../utils/fetchData";
   import { onMount } from 'svelte';
-  import hostname from '../utils/hostname.js';
-  // import type { ImageSrcSet } from '../utils/types';
+  import type { Biography, ImageSrcSet } from '../utils/types';
 
-  let data = { text: '' };
-  let img = {};
+  let bio: Promise<Biography>;
+  let img: Promise<ImageSrcSet>;
 
   onMount(async () => {
-    data = await fetch(`${hostname}${process.env.GET_BIOGRAPHY}`)
-      .then(res => res.json())
-      .catch(e => console.error(e));
-
-    img = await fetch(`${hostname}${process.env.GET_PROFILE_IMAGE}`)
-      .then(res => res.json())
-      .catch(e => console.error(e));
+    bio = fetchData<Biography>(`${process.env.GET_BIOGRAPHY}`);
+    img = fetchData<ImageSrcSet>(`${process.env.GET_PROFILE_IMAGE}`);
   })
 
 </script>
 
 <div class="content_container">
   <h1>About me</h1>
-  {#await data}
-    <Loading />
-  {:then paragraph}
 
-    {#await img}
-      <Loading />
-    {:then imgResolved}
-      <img 
-        class="img" 
-        src={imgResolved.src} 
-        srcset={imgResolved.srcset} 
-        sizes={imgResolved.sizes} 
-        alt="headshot"
-      >
-    {:catch error}
-      <Error {error} />
-    {/await}
-      
-    {#each paragraph.text.split('\n') as para}
+  {#await Promise.all([bio, img])} 
+    <Loading />
+  {:then [biography, image]}
+
+    <img 
+      class="img" 
+      src={image.src} 
+      srcset={image.srcset} 
+      sizes={image.sizes} 
+      alt="headshot"
+    >
+
+    {#each biography.text.split('\n') as para}
       <p>{para}</p>
     {/each}
 
@@ -58,7 +48,7 @@
     </p>
 
   {:catch error}
-    <Error {error} />
+    <ErrorPage {error} />
   {/await}
 </div>
   

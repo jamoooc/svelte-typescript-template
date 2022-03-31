@@ -59,6 +59,10 @@ export default {
 			compilerOptions: {
 				// enable run-time checks when not in production
 				dev: !production
+				// hydratable: true,
+				// css: css => {
+				// 	css.write("public/bundle.css");
+				// }
 			}
 		}),
 		// we'll extract any component CSS out into
@@ -86,11 +90,17 @@ export default {
 
 		// Watch the `public` directory and refresh the
 		// browser on changes when not in production
-		!production && livereload('public'),
+		!production && livereload('public', { delay: 200 }),
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+		production && terser(),
+
+		// !production &&
+		// livereload({
+		// 	watch: "public/App.js",
+		// 	delay: 200
+		// }),
 	],
 	watch: {
 		clearScreen: false

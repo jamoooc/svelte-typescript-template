@@ -9,3 +9,7 @@ export type ImageSrcSet = {
   srcset: string;
   sizes: string;
 }
+
+export type Biography = { 
+  text: string; 
+}
