@@ -8,6 +8,7 @@
 	import Footer from "./components/Footer.svelte";
 	import Navigation from "./components/Navigation.svelte";
 	import Repertoire from "./routes/Repertoire.svelte";
+  import Performance from "./routes/Performance.svelte";
 
 	export let url: string = '';
 
@@ -24,6 +25,7 @@
         <Navigation />
         <Route path="about" component="{About}" />
         <Route path="repertoire" component="{Repertoire}" />
+        <Route path="performances" component="{Performance}" />
         <Route path="/" component="{Home}" />
       </div>
       <Footer />

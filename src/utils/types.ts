@@ -24,3 +24,17 @@ export type Repertoire = {
   concert: RepertoireItem[] | null
   surname: string;
 }
+
+export type Performance = {
+  datetimes: Array<string|null>;
+  duptimes: Array<string|null>;
+  title: string|null;
+  work_title: string|null;
+  role: string;
+  description: string;
+  surname: string;
+  location: string;
+  company_name: string|null;
+  company_url: string|null;
+  booking_url: string|null;
+}
