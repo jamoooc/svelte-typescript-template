@@ -8,6 +8,12 @@ export type ImageSrcSet = {
   src: string;
   srcset: string;
   sizes: string;
+  description: string;
+}
+
+export interface GalleryImageSrcSet extends ImageSrcSet {
+  id: number;
+  date: Date;
 }
 
 export type Biography = { 
