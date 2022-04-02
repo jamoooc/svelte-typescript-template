@@ -28,7 +28,7 @@
       src={image.src} 
       srcset={image.srcset} 
       sizes={image.sizes} 
-      alt="headshot"
+      alt={image.description}
     >
 
     {#each biography.text.split('\n') as para}
