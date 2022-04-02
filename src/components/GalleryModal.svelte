@@ -54,7 +54,7 @@
 <div class="modal">
   <img 
     use:onload
-    class="modal_img" 
+    class="{loaded ? 'modal_img loaded' : 'modal_img'}"
     src={modalImage.src} 
     srcset={modalImage.srcset} 
     sizes={modalImage.sizes} 
@@ -105,10 +105,13 @@
     transition: opacity 500ms ease-out
   }
 
+  img.loaded {
+    opacity: 1;
+  }
+
   .loading {
-    /* TODO POSITION ME */
     position: absolute;
-z-index: 10;
+    z-index: 10;
     width: 100%
   }
 
