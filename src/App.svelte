@@ -5,8 +5,9 @@
 
 	import Home from "./routes/Home.svelte";
 	import About from "./routes/About.svelte";
-  import Default from "./routes/Default.svelte";
 	import Footer from "./components/Footer.svelte";
+  import Default from "./routes/Default.svelte";
+  import Gallery from "./routes/Gallery.svelte";
 	import Navigation from "./components/Navigation.svelte";
 	import Repertoire from "./routes/Repertoire.svelte";
   import Performance from "./routes/Performance.svelte";
@@ -27,6 +28,7 @@
         <Route path="about" component="{About}" />
         <Route path="repertoire" component="{Repertoire}" />
         <Route path="performances" component="{Performance}" />
+        <Route path="gallery" component="{Gallery}" />
         <Route path="/" component="{Home}" />
         <Route path="" component="{Default}" />
       </div>

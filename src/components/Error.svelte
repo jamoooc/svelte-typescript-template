@@ -1,8 +1,10 @@
-<script>
+<script type="ts">
 
-  export let error;
+  export let error: Error;
 
 </script>
 
-<h2>Error: {error.name}</h2>
-<p>{error.message}</p>
+<div class="content_container">
+  <h2>Error: {error.name}</h2>
+  <p>{error.message}</p>
+</div>
