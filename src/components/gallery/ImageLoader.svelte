@@ -4,12 +4,13 @@
   export let srcset: string;
   export let sizes: string;
   export let alt: string;
+  export let gallery: Boolean;
 
   import IntersectionObserver from './IntersectionObserver.svelte';
   import Image from './Image.svelte';
   import { onMount } from 'svelte';
 
-  // check for 
+  // check for browser implemented lazy loading 
   let nativeLoading = false
   onMount(() => {
     if ('loading' in HTMLImageElement.prototype) {
@@ -21,6 +22,6 @@
 
 <IntersectionObserver once={true} let:intersecting={intersecting} >
   {#if intersecting || nativeLoading}
-    <Image {src} {srcset} {sizes} {alt} on:imageLoaded />
+    <Image {src} {srcset} {sizes} {alt} {gallery} on:imageLoaded />
   {/if}
 </IntersectionObserver>

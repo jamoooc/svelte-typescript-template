@@ -46,6 +46,7 @@
     sizes={modalImage.sizes} 
     alt={modalImage.description} 
     on:imageLoaded={onImageLoaded}
+    gallery={false}
   />
 
   <!-- overlay navigation when the image has loaded -->
@@ -106,7 +107,6 @@
   }
 
   .modal {
-		
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%,-50%);

@@ -73,23 +73,15 @@
       {#each columns as column}
         <div class="column">
           {#each column as image} 
-            <!-- <img 
-              on:click={() => openModal(galleryData.findIndex((e) => e.id === image.id))}
-              class="gallery_img" 
-              src={image.src} 
-              srcset={image.srcset} 
-              sizes={image.sizes} 
-              alt={image.description} 
-            /> -->
             <div on:click={() => openModal(galleryData.findIndex((e) => e.id === image.id))}>
               <ImageLoader 
                 src={image.src} 
                 srcset={image.srcset} 
                 sizes={image.sizes} 
                 alt={image.description} 
+                gallery={true}
               />
             </div>
-
           {/each}
         </div>
       {/each}
@@ -125,16 +117,6 @@
     
   #gallery .column *:nth-child(1) { 
     margin-top: 0 
-  }
-
-  .gallery_img {
-    opacity: 0.9;
-    transition: all .2s;
-  }
-
-  .gallery_img:hover {
-    opacity: 1;
-    transform: scale(1.01);
   }
 
   /* extra small device up to 575.98px */

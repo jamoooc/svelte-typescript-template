@@ -6,6 +6,7 @@
   export let srcset: string;
   export let sizes: string;
   export let alt: string;
+  export let gallery: Boolean;
 
   let loaded = false
   let image: HTMLImageElement;
@@ -34,12 +35,12 @@
     opacity: 1;
   }
 
-  .gallery_img {
+  .gallery {
     opacity: 0.9;
     transition: all .2s;
   }
 
-  .gallery_img:hover {
+  .gallery:hover {
     opacity: 1;
     transform: scale(1.01);
   }
@@ -51,7 +52,7 @@
   {srcset} 
   {sizes} 
   {alt}
-  class="gallery_img"
+  class:gallery
   class:loaded 
   bind:this={image} 
   loading="lazy" 
