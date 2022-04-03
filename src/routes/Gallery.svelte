@@ -2,6 +2,7 @@
 
   import fetchData from "../utils/fetchData.js";
   import ErrorMessage from '../components/Error.svelte'
+  import ImageLoader from '../components/gallery/ImageLoader.svelte';
   import Loading from "../components/Loading.svelte";
   import Modal from '../components/GalleryModal.svelte';
   import { onMount } from 'svelte';
@@ -72,14 +73,23 @@
       {#each columns as column}
         <div class="column">
           {#each column as image} 
-            <img 
+            <!-- <img 
               on:click={() => openModal(galleryData.findIndex((e) => e.id === image.id))}
               class="gallery_img" 
               src={image.src} 
               srcset={image.srcset} 
               sizes={image.sizes} 
               alt={image.description} 
-            />
+            /> -->
+            <div on:click={() => openModal(galleryData.findIndex((e) => e.id === image.id))}>
+              <ImageLoader 
+                src={image.src} 
+                srcset={image.srcset} 
+                sizes={image.sizes} 
+                alt={image.description} 
+              />
+            </div>
+
           {/each}
         </div>
       {/each}

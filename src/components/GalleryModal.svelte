@@ -1,42 +1,29 @@
 <script lang="ts">
 
   import Loading from './Loading.svelte';
+  import ImageLoader from '../components/gallery/ImageLoader.svelte';
   import { createEventDispatcher } from 'svelte';
   import type { GalleryImageSrcSet } from '../utils/types';
-
-  // SVG
-  let leftArrow = "80 10, 20 50, 80 90";
-  let rightArrow = "20 10, 80 50, 20 90"; 
-  let loaded = false;
 
   export let modalImage: GalleryImageSrcSet;
   export let galleryData: GalleryImageSrcSet[];
 
+  let leftArrow = "80 10, 20 50, 80 90";
+  let rightArrow = "20 10, 80 50, 20 90"; 
+  let loaded = false;
+
+  const onImageLoaded = () => loaded = true;
   const dispatch = createEventDispatcher();
   const close = () => dispatch('close');
 
   function leftControl(i: number) {
     loaded = false;
-    console.log(((i - 1) + galleryData.length) % galleryData.length)
     modalImage = galleryData[((i - 1) + galleryData.length) % galleryData.length]; // ((x - 1) + k) % k
   } 
 
   function rightControl(i: number) {
     loaded = false;
-    console.log((i + 1) % galleryData.length)
     modalImage = galleryData[(i + 1) % galleryData.length]; // x % (max - min + 1) + min
-  }
-
-  function onload(node) {
-    node.onload = () => {
-      loaded = true;
-      node.style.opacity = 1;
-    }
-    return {
-      destroy() {
-        loaded = false;
-      }
-    }
   }
 
 </script>
@@ -52,15 +39,16 @@
 {/if}
 
 <div class="modal">
-  <img 
-    use:onload
-    class="{loaded ? 'modal_img loaded' : 'modal_img'}"
+
+  <ImageLoader 
     src={modalImage.src} 
     srcset={modalImage.srcset} 
     sizes={modalImage.sizes} 
-    alt={modalImage.description}
-  >
+    alt={modalImage.description} 
+    on:imageLoaded={onImageLoaded}
+  />
 
+  <!-- overlay navigation when the image has loaded -->
   {#if loaded}
     <div 
       on:click={() => leftControl(galleryData.findIndex(e => e.id === modalImage.id))} 
@@ -100,15 +88,6 @@
 
 <style>
 
-  img {
-    opacity: 0;
-    transition: opacity 500ms ease-out
-  }
-
-  img.loaded {
-    opacity: 1;
-  }
-
   .loading {
     position: absolute;
     z-index: 10;
@@ -127,17 +106,15 @@
   }
 
   .modal {
-		position: fixed; 
+		
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%,-50%);
-		background: transparent;
+    width: 80%;
+    position: fixed; 
+    background: transparent;
     z-index: 1;
-  }
-
-  .modal_img {
-    max-width: 97vw;
-    max-height: 97vh;
+    width: 90vh;
   }
 
   .modal_desc {

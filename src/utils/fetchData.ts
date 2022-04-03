@@ -1,10 +1,9 @@
 import hostname from '../utils/hostname.js';
 
 /**
- * Simple data fetch
  * 
  * @param {string} path url path 
- * @returns 
+ * @returns {Promise<T>}
  */
 
 export default async function fetchData<T>(path: string) {
