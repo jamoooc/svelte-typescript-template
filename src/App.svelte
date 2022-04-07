@@ -6,6 +6,7 @@
 	import Home from "./routes/Home.svelte";
 	import About from "./routes/About.svelte";
 	import Footer from "./components/Footer.svelte";
+  import Contact from "./routes/Contact.svelte";
   import Default from "./routes/Default.svelte";
   import Gallery from "./routes/Gallery.svelte";
 	import Navigation from "./components/Navigation.svelte";
@@ -27,6 +28,7 @@
         <Navigation />
         <Route path="about" component="{About}" />
         <Route path="repertoire" component="{Repertoire}" />
+        <Route path="contact" component="{Contact}" />
         <Route path="performances" component="{Performance}" />
         <Route path="gallery" component="{Gallery}" />
         <Route path="/" component="{Home}" />

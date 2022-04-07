@@ -1,7 +1,7 @@
 <script lang="ts">
 
   import Loading from './Loading.svelte';
-  import ImageLoader from '../components/gallery/ImageLoader.svelte';
+  import ImageLoader from './images/ImageLoader.svelte';
   import { createEventDispatcher } from 'svelte';
   import type { GalleryImageSrcSet } from '../utils/types';
 

@@ -4,6 +4,9 @@ import footerData from '../../data/footer';
 import footerMockData from '../../mockData/footer';
 import mediaButtonsData from '../../data/mediaButtons';
 import mediaButtonsMockData from '../../mockData/mediaButtons';
+import contactData from '../../data/contact';
+import contactMockData from '../../mockData/contact';
+
 
 import nav from '../../data/nav';
 import logo from '../../data/logo';
@@ -20,5 +23,6 @@ export const footer = {
 }
 
 export const mediaButtons = isProd ? mediaButtonsData : mediaButtonsMockData;
+export const contact = isProd ? contactData : contactMockData;
 
 export { nav, logo };

@@ -95,6 +95,11 @@ textarea {
   height: 20vh;
 }
 
+small {
+  padding: 0;
+  margin: 0;
+}
+
 input:disabled {
   color: #ccc;
 }

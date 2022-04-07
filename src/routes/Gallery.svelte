@@ -2,7 +2,7 @@
 
   import fetchData from "../utils/fetchData.js";
   import ErrorMessage from '../components/Error.svelte'
-  import ImageLoader from '../components/gallery/ImageLoader.svelte';
+  import ImageLoader from '../components/images/ImageLoader.svelte';
   import Loading from "../components/Loading.svelte";
   import Modal from '../components/GalleryModal.svelte';
   import { onMount } from 'svelte';

@@ -6,7 +6,7 @@ import hostname from '../utils/hostname.js';
  * @returns {Promise<T>}
  */
 
-export default async function fetchData<T>(path: string) {
+export default async function fetchData<T>(path: string): Promise<T> {
   return fetch(`${hostname}${path}`)
     .then(response => {
       if (!response.ok) {

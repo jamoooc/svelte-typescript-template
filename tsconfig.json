@@ -4,6 +4,7 @@
     "target": "es2017",
     "importsNotUsedAsValues": "error",
     "isolatedModules": true,
+    "strictNullChecks": false,
     "sourceMap": true,
     "strict": false,
     "esModuleInterop": true,

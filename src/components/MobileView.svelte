@@ -5,7 +5,7 @@
 	import { fade, scale } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
-  import { toggleMobileNav } from "../components/stores.js"
+  import { toggleMobileNav } from "./stores"
 
   // transitions
   let menu = { delay: 0, duration: 100 }

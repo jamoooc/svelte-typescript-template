@@ -1,7 +1,7 @@
 <script>
 
   import { logo } from "../utils/data";
-  import { toggleMobileNav } from "../components/stores"
+  import { toggleMobileNav } from "./stores"
   
   import NavLink from "./NavLink.svelte";
 

@@ -44,3 +44,17 @@ export type Performance = {
   company_url: string|null;
   booking_url: string|null;
 }
+
+export interface FormState {
+  loading: Boolean;
+  submitting: Boolean;
+  submitted: Boolean;
+  error: Boolean;
+}
+
+export interface ContactForm {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
