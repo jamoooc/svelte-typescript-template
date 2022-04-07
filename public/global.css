@@ -65,7 +65,7 @@ a:hover {
 /* error message */
 
 .error_message {
-  margin: 0 0 0 1rem;
+  margin: 0;
   color: rgb(224, 127, 127);
 }
 

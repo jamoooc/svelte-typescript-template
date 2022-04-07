@@ -15,5 +15,13 @@
   bind:value={value}
 />
 {#if errors[id]}
-  <small>{errors[id]}</small>
+  <small class="error_message">
+    {errors[id]}
+  </small>
 {/if}
+
+<style>
+  input {
+    margin: 0;
+  }
+</style>

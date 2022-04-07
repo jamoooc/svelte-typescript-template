@@ -125,6 +125,7 @@
   button {
     float: right;
     width: 150px;
+    margin-top: 10px;
     border-radius: 5px;
   }
 

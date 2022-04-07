@@ -19,3 +19,9 @@
     {errors[id]}
   </small>
 {/if}
+
+<style>
+  textarea {
+    margin: 0;
+  }
+</style>
