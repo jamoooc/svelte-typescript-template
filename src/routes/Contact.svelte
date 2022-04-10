@@ -20,12 +20,12 @@
   async function onSubmit(formData: ContactForm) {
     try {
       const res = await fetch(
-        `${hostname}${process.env.SUBMIT_FORM}`, 
+        `${hostname}${process.env.CONTACT_FORM}`, 
         fetchOptions(formData, 'POST')
       );
       await res.json();
       if (!res.ok) {
-        throw new Error('Error submitting form');
+        throw new Error('Error submitting contact form');
       }
       $formState.submitted = true;
     } catch (e) {
@@ -131,16 +131,6 @@
 
   .email {
     padding: 1rem 0 1rem 3rem;
-  }
-
-  .form_container {
-    width: 100%;
-  }
-
-  @media(min-width: 825px) {
-    .form_container {
-      width: 80%;
-    }
   }
 
 </style>

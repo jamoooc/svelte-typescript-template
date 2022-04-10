@@ -122,6 +122,16 @@ button:focus {
   border-color: #666;
 }
 
+.form_container {
+  width: 100%;
+}
+
+@media(min-width: 825px) {
+  .form_container {
+    width: 80%;
+  }
+}
+
 /* style logo and media icons on hover */
 
 .logo_container:hover .icon_logo,
