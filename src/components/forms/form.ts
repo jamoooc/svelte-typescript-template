@@ -40,11 +40,6 @@ export function createForm<T>(initialValues: T, validationSchema: SchemaOf<T>, o
     form.set(newForm);
     errors.set(newForm);
 
-    // TODO: it would be convenient to always use multipart form data, something like:
-    // const formData = new FormData();
-    // for (const [k,v] of Object.entries(values)) {
-    //   formData.set(k,v);
-    // }
     await onSubmit(values);
   }
 
@@ -65,11 +60,9 @@ export function createForm<T>(initialValues: T, validationSchema: SchemaOf<T>, o
           await resetFormAndSubmit(values);
         })
         .catch(async (error: Error) => {
-          console.log('catch')
           if (error instanceof ValidationError && error.inner) {
             setErrors(error);
           }
-
         }) 
         .finally(() => {
           formState.update(state => state = { ...state, loading: false });

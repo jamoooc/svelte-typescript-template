@@ -11,7 +11,6 @@ export default function fetchOptions(
   credentials: RequestCredentials = 'include',
   cache: RequestCache = 'no-cache'
 ) {
-  console.log(JSON.stringify(body));
   return {
     body: JSON.stringify(body),
     method,
