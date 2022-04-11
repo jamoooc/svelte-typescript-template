@@ -58,3 +58,22 @@ export interface ContactForm {
   subject: string;
   message: string;
 }
+
+export interface LoginCredentials {
+  username: string;
+  password: string;
+}
+
+export interface RepertoireData {
+  composerID: number;
+  title: string;
+  role?: string|null;
+  type: '' | 'concert' | 'opera';
+  repList: boolean;
+}
+
+export interface ComposerData {
+  id: number;
+  forename: string;
+  surname: string;
+}
