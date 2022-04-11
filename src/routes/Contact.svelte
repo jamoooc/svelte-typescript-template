@@ -122,13 +122,6 @@
     padding: 0;
   }
 
-  button {
-    float: right;
-    width: 150px;
-    margin-top: 10px;
-    border-radius: 5px;
-  }
-
   .email {
     padding: 1rem 0 1rem 3rem;
   }

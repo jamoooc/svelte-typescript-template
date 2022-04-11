@@ -108,6 +108,10 @@ button {
   color: #333;
   background-color: #f4f4f4;
   outline: none;
+  float: right;
+  width: 150px;
+  margin-top: 10px;
+  border-radius: 5px;
 }
 
 button:disabled {
