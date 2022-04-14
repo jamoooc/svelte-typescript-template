@@ -20,17 +20,6 @@ export type Biography = {
   text: string; 
 }
 
-export type RepertoireItem = {
-  role: string; 
-  title: string;
-}
-
-export type Repertoire = {
-  opera: RepertoireItem[] | null
-  concert: RepertoireItem[] | null
-  surname: string;
-}
-
 export type Performance = {
   datetimes: Array<string|null>;
   duptimes: Array<string|null>;
@@ -64,16 +53,32 @@ export interface LoginCredentials {
   password: string;
 }
 
-export interface RepertoireData {
-  composerID: number;
+export interface RepertoireItem {
+  id: number;
+  composer_id: number;
   title: string;
   role?: string|null;
   type: '' | 'concert' | 'opera';
-  repList: boolean;
+  rep_list: boolean;
 }
 
-export interface ComposerData {
-  id: number;
+export interface RepertoireDesc extends RepertoireItem {
   forename: string;
   surname: string;
+  full_name: string;
+}
+
+export type RepertoireList = {
+  opera: RepertoireItem[] | null
+  concert: RepertoireItem[] | null
+  surname: string;
+}
+
+export interface Composer {
+  forename: string;
+  surname: string;
+}
+
+export interface ComposerData extends Composer {
+  id: number;
 }

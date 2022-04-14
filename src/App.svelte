@@ -4,6 +4,7 @@
 	import { home } from "./utils/data";
 
 	import Home from "./routes/Home.svelte";
+	import Admin from "./routes/Admin.svelte";
 	import About from "./routes/About.svelte";
 	import Footer from "./components/Footer.svelte";
   import Contact from "./routes/Contact.svelte";
@@ -27,6 +28,7 @@
       <div class="page-container">
         <Navigation />
         <Route path="about" component="{About}" />
+        <Route path="dashboard" component="{Admin}" />
         <Route path="repertoire" component="{Repertoire}" />
         <Route path="contact" component="{Contact}" />
         <Route path="performances" component="{Performance}" />

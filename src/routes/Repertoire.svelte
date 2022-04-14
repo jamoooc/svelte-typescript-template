@@ -5,12 +5,12 @@
   import RepertoireItem from "../components/RepertoireItem.svelte";
   import fetchData from '../utils/fetchData.js';
   import { onMount } from "svelte";
-  import type { Repertoire } from '../utils/types';
+  import type { RepertoireList } from '../utils/types';
 
-  let repertoire: Promise<Repertoire[]>;
+  let repertoire: Promise<RepertoireList[]>;
 
   onMount(async () => {
-    repertoire = fetchData<Repertoire[]>(`${process.env.GET_REPERTOIRE}`);
+    repertoire = fetchData<RepertoireList[]>(`${process.env.GET_REPERTOIRE}`);
   })
 
 </script>

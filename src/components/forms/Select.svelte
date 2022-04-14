@@ -1,5 +1,7 @@
 <script type="ts">
 
+  import { createEventDispatcher } from 'svelte';
+
   export let id: string;
   export let name: string = id;
   export let label: string = `${name[0].toUpperCase()}${name.substring(1)}`;
@@ -9,11 +11,11 @@
   
   export let optId: string = 'id';  // submitted options prop name
   export let optKey: string;        // displayed options prop name
-  export let options; // TYPE ME    // arr of options passed to select
+  export let options = null;        // arr of options passed to select
   
   // TYPE
-  export let optGroups = null;
-  export let optGroupId = null;
+  export let optGroups: boolean = null;
+  export let optGroupID = null;
   export let optGroupLabel = null;
 
   // nested components to update select values
@@ -40,13 +42,18 @@
     ));
   }
 
+  const dispatch = createEventDispatcher();
+  const onSelect = () => {
+    dispatch('selected', { value });
+  }
+
 </script>
 
 
 
 <label for={id}>{label}</label>
 <div class="form_container">
-  <select {name} bind:value={value}>
+  <select {name} bind:value={value} on:change={onSelect}>
 
     <!-- add placeholder -->
     {#if placeholder}
@@ -58,12 +65,12 @@
     <!-- collect items in option groups if specified -->
     {#if optGroups}
       <!-- get unique values from options array for optGroup labels -->
-      {#each uniqueProp(optGroups, optGroupId) as optGroup} 
+      {#each uniqueProp(options, optGroupID) as optGroup} 
         <optgroup label={optGroup[optGroupLabel]}>
           <!-- get options of optgroup -->
           {#each options as option}
-            {#if option[optGroupId] === optGroup[optGroupId]}
-              <option value={option[optId]} >
+            {#if option[optGroupID] === optGroup[optGroupID]}
+              <option value={option[optId]}>
                 {option[optKey]}
               </option>
             {/if}
@@ -126,6 +133,7 @@
     <svelte:component 
       this={deleteModal} 
       bind:modalOpen={deleteModalOpen}
+      on:updated
     />
   </div>
 {/if}
@@ -152,7 +160,6 @@
     height: 30px;
     margin: 0;
     padding: 0;
-    box-sizing: content-box;
   }
 
   .component_modal:focus {
@@ -175,8 +182,8 @@
   .modal {
     border: 1px solid rgb(93, 93, 93);
     background-color: #fff;
-    padding: 0 0 0 5%;
-    margin-bottom: 0;
+    padding: 0 5px 0 5px;
+    margin: 10px 0 0 0;
   }
 
 </style>
