@@ -5,7 +5,6 @@
   import UpdateRepertoire from "./repertoire/UpdateRepertoire.svelte";
   import DeleteRepertoire from "./repertoire/DeleteRepertoire.svelte";
   import DeleteComposer from "./repertoire/DeleteComposer.svelte";
-  import UpdateComposer from "./repertoire/UpdateComposer.svelte";
   import InsertPerformance from "./performance/InsertPerformance.svelte";
   import UpdatePerformance from "./performance/UpdatePerformance.svelte";
   import DeletePerformance from "./performance/DeletePerformance.svelte";
@@ -25,10 +24,8 @@
     },
     repertoire: { 
       add_repertoire: false,
-      // update_composer: false,
       update_repertoire: false,
-      delete_repertoire: false,
-      // delete_composer: false
+      delete_repertoire: false
     },
     content: { 
       update_biography: false,
@@ -40,9 +37,7 @@
   let options = {
     add_repertoire: InsertRepertoire,
     update_repertoire: UpdateRepertoire,
-    // update_composer: UpdateComposer,
     delete_repertoire: DeleteRepertoire,
-    // delete_composer: DeleteComposer,
     add_performance: InsertPerformance,
     add_date: InsertPerformanceDate,
     update_performance: UpdatePerformance,
