@@ -1,10 +1,8 @@
 <script lang="ts">
 
-  // import splitStringOnValue from '../../utils/splitProp.js';
   import InsertRepertoire from "./repertoire/InsertRepertoire.svelte";
   import UpdateRepertoire from "./repertoire/UpdateRepertoire.svelte";
   import DeleteRepertoire from "./repertoire/DeleteRepertoire.svelte";
-  import DeleteComposer from "./repertoire/DeleteComposer.svelte";
   import InsertPerformance from "./performance/InsertPerformance.svelte";
   import UpdatePerformance from "./performance/UpdatePerformance.svelte";
   import DeletePerformance from "./performance/DeletePerformance.svelte";
@@ -72,8 +70,6 @@
       .map(e => e[0].toUpperCase() + e.substring(1,))
       .join(' ');
   }
-
-  $:console.log('selectedTask', selectedTask);
 
 </script>
 
