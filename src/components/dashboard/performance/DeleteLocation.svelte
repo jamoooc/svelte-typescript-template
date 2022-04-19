@@ -9,18 +9,10 @@
   import { number, object, SchemaOf } from 'yup';
   import { csrfToken } from '../../stores';
   import { onMount } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
+  import type { LocationData } from '../../../utils/types';
 
-  interface PerformanceDate { 
-    id: number;
-    date: Date;
-  }
-
-  interface PerformanceData {
-    id: number;
-    description: string|null;
-  }
-
-  type PerformanceID = Pick<PerformanceDate, "id">;
+  export let modalOpen: boolean;
 
   const headers = {
     "Content-Type": "application/json",
@@ -28,21 +20,28 @@
     "csrf_token": $csrfToken
   };
 
-  let performanceData: PerformanceData[] = [];
+  let locationData: LocationData[] = [];
 
-  async function getPerformanceList() {
-    await fetchData<PerformanceData[]>(`${process.env.GET_PERFORMANCE_LIST}`)
-      .then(data => performanceData = data)
+  async function getComposerList() {
+    await fetchData<LocationData[]>(`${process.env.GET_LOCATION_LIST}`)
+      .then(data => locationData = data)
       .catch(e => console.error(e));
   }
 
-  onMount(getPerformanceList);
+  // component may be a modal - notify parent to close modal and update 
+  const dispatch = createEventDispatcher();
+  function updateHandler() {
+		dispatch('updated');
+    modalOpen = false;
+	}
 
-  async function onSubmit(formData: PerformanceID) {
+  onMount(getComposerList);
+
+  async function onSubmit(formData: LocationData) {
     console.log('onSubmit', formData);
     try {
       const res = await fetch(
-        `${hostname}${process.env.DELETE_PERFORMANCE}`, 
+        `${hostname}${process.env.DELETE_LOCATION}`, 
         fetchOptions(formData, 'DELETE', headers)
       );
       await res.json();
@@ -50,17 +49,18 @@
         throw new Error('Error submitting form');
       }
       $formState.submitted = true;
+      updateHandler();
     } catch (e) {
       console.error(e);
       $formState.error = true;
     }
   }
 
-  const formFields: PerformanceID = {
+  const formFields: Pick<LocationData, "id"> = {
     id: 0 // IDs start at 1
   }
 
-  const validationSchema: SchemaOf<PerformanceID> = object({
+  const validationSchema: SchemaOf<Pick<LocationData, "id">> = object({
     id: number().positive('location is a required field').required()
   });
 
@@ -69,14 +69,14 @@
     errors,
     formState,
     handleSubmit
-  } = createForm<PerformanceID>(formFields, validationSchema, onSubmit);
+  } = createForm<Pick<LocationData, "id">>(formFields, validationSchema, onSubmit);
 
 </script>
 
-<h3>
-  Delete performance
+<h3 class:modalOpen>
+  Delete location
 </h3>
-<p>Note: will remove all scheduled performances.</p>
+
 {#if $formState.loading}
   <Loading />
 {:else if $formState.submitted}
@@ -92,11 +92,11 @@
     <form on:submit={handleSubmit}>
       <Select 
         id='id' 
-        label='Select date'
+        label='Location'
         bind:value={$form.id} 
-        optKey='description'
-        options={performanceData}
-        placeholder='Select performance'
+        optKey='location'
+        options={locationData}
+        placeholder='Select location'
         errors={$errors}
       />
       <div class="button_container">
@@ -107,3 +107,18 @@
     </form>
   </div>
 {/if}
+
+<style>
+
+  /* conditionally remove padding if used as modal */
+  .modalOpen {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .button_container {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+</style>

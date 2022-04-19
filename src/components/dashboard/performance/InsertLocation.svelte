@@ -1,23 +1,16 @@
 <script lang="ts"> 
 
-  import Select from '../../forms/Select.svelte';
+  import Input from '../../forms/Input.svelte';
   import Loading from '../../Loading.svelte';
   import fetchOptions from '../../../utils/fetchOptions';
   import hostname from '../../../utils/hostname';
-  import fetchData from "../../../utils/fetchData";
   import { createForm } from '../../forms/form';
-  import { number, object, SchemaOf } from 'yup';
+  import { object, string, SchemaOf } from 'yup';
   import { csrfToken } from '../../stores';
-  import { onMount } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
+  import type { Location } from '../../../utils/types';
 
-  interface PerformanceDate { 
-    id: number;
-    date: Date;
-  }
-
-  type PerformanceID = Pick<PerformanceDate, "id">;
-
-  export let modalOpen: boolean;
+  export let modalOpen: boolean; // when form component is displayed as a modal
 
   const headers = {
     "Content-Type": "application/json",
@@ -25,40 +18,38 @@
     "csrf_token": $csrfToken
   };
 
-  let performanceDateData: PerformanceDate[] = [];
+  // component may be a modal - notify parent to close modal and update 
+  const dispatch = createEventDispatcher();
+  function updateHandler() {
+		dispatch('updated');
+    modalOpen = false;
+	}
 
-  async function getPerformanceDateList() {
-    await fetchData<PerformanceDate[]>(`${process.env.GET_PERFORMANCE_DATE_LIST}`)
-      .then(data => performanceDateData = data)
-      .catch(e => console.error(e));
-  }
-
-  onMount(getPerformanceDateList);
-
-  async function onSubmit(formData: PerformanceID) {
+  async function onSubmit(formData: Location) {
     console.log('onSubmit', formData);
     try {
       const res = await fetch(
-        `${hostname}${process.env.DELETE_LOCATION}`, 
-        fetchOptions(formData, 'DELETE', headers)
+        `${hostname}${process.env.INSERT_LOCATION}`, 
+        fetchOptions(formData, 'POST', headers)
       );
       await res.json();
       if (!res.ok) {
         throw new Error('Error submitting form');
       }
       $formState.submitted = true;
+      updateHandler();
     } catch (e) {
       console.error(e);
       $formState.error = true;
     }
   }
 
-  const formFields: PerformanceID = {
-    id: 0 // IDs start at 1
+  const formFields: Location = {
+    location: ''
   }
 
-  const validationSchema: SchemaOf<PerformanceID> = object({
-    id: number().positive('location is a required field').required()
+  const validationSchema: SchemaOf<Location> = object({
+    location: string().min(2).max(512).required()
   });
 
   const {
@@ -66,13 +57,13 @@
     errors,
     formState,
     handleSubmit
-  } = createForm<PerformanceID>(formFields, validationSchema, onSubmit);
+  } = createForm<Location>(formFields, validationSchema, onSubmit);
 
 </script>
 
-<h3 class:modalOpen>
-  Delete performance date
-</h3>
+<h2 class:modalOpen>
+  Add location
+</h2>
 
 {#if $formState.loading}
   <Loading />
@@ -87,13 +78,9 @@
 {:else}
   <div class="form_container">
     <form on:submit={handleSubmit}>
-      <Select 
-        id='id' 
-        label='Select date'
-        bind:value={$form.id} 
-        optKey='description'
-        options={performanceDateData}
-        placeholder='Select performance date'
+      <Input 
+        id='location' 
+        bind:value={$form.location} 
         errors={$errors}
       />
       <div class="button_container">
