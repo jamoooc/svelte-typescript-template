@@ -6,7 +6,7 @@
   export let name: string = id;
   export let label: string = `${name[0].toUpperCase()}${name.substring(1)}`;
   export let value: number | string;
-  export let placeholder: string;
+  export let placeholder: string = null
   export let errors = {};
   
   export let optId: string = 'id';  // submitted options prop name
@@ -58,7 +58,7 @@
     <!-- add placeholder -->
     {#if placeholder}
       <option value={typeof value === 'number' ? 0 : ''} disabled selected>
-        {placeholder} 
+        {options.length > 0 ? placeholder : 'No data'} 
       </option> 
     {/if}
 
