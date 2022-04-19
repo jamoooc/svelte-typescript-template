@@ -28,7 +28,7 @@
 
   async function getRepertoireList() {
     await fetchData<UpdateRepertoireItem[]>(`${process.env.GET_REPERTOIRE_LIST}`)
-      .then(data => {console.log(data);repertoireItem = data;})
+      .then(data => repertoireItem = data)
       .catch(e => console.error(e));
   }
 

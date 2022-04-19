@@ -1,7 +1,7 @@
 <script lang='ts'>
 
   import Loading from '../components/Loading.svelte';
-  import TextArea from '../components/forms/TextArea.svelte';
+  import Textarea from '../components/forms/Textarea.svelte';
   import Input from '../components/forms/Input.svelte';
   import hostname from '../utils/hostname';
   import fetchOptions from '../utils/fetchOptions';
@@ -97,7 +97,7 @@
           bind:value={$form.subject} 
           errors={$errors}
         />
-        <TextArea 
+        <Textarea 
           id='message' 
           bind:value={$form.message} 
           errors={$errors}

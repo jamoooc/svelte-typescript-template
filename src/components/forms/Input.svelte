@@ -4,6 +4,7 @@
   export let name: string = id;
   export let label: string = `${name[0].toUpperCase()}${name.substring(1)}`;
   export let value: string;
+  export let placeholder: string = null;
   export let errors = {};
 
 </script>
@@ -12,6 +13,7 @@
 <input
   {id}
   {name}
+  {placeholder}
   bind:value={value}
 />
 {#if errors[id]}

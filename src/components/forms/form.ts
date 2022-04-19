@@ -37,9 +37,9 @@ export function createForm<T>(initialValues: T, validationSchema: SchemaOf<T>, o
     for (const prop of Object.keys(newForm)) {
       newForm[prop] = '';
     }
-    form.set(newForm);
-    errors.set(newForm);
-
+    form.set({ ...newForm });
+    errors.set({ ...newForm });
+console.log(form, errors);
     await onSubmit(values);
   }
 

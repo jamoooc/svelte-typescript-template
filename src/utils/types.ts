@@ -1,7 +1,10 @@
 export type Review = {
+  id: number;
   review: string;
   reviewer: string;
   work: string;
+  date: string; // Date
+  display: boolean;
 };
 
 export type ImageSrcSet = {
@@ -18,20 +21,6 @@ export interface GalleryImageSrcSet extends ImageSrcSet {
 
 export type Biography = { 
   text: string; 
-}
-
-export type Performance = {
-  datetimes: Array<string|null>;
-  duptimes: Array<string|null>;
-  title: string|null;
-  work_title: string|null;
-  role: string;
-  description: string;
-  surname: string;
-  location: string;
-  company_name: string|null;
-  company_url: string|null;
-  booking_url: string|null;
 }
 
 export interface FormState {
@@ -82,3 +71,42 @@ export interface Composer {
 export interface ComposerData extends Composer {
   id: number;
 }
+
+export interface Company {
+  name: string;
+  url: string;
+}
+
+export interface CompanyData extends Company {
+  id: number;
+}
+
+export interface Location {
+  location: string;
+}
+
+export interface LocationData extends Location {
+  id: number;
+}
+
+export type Performance = {
+  // performance_id ?
+  datetimes: Array<string|null>;
+  duptimes: Array<string|null>;
+  title: string|null;
+  work_title: string|null;
+  role: string;
+  description: string|null;
+  surname: string;
+  location: string;
+  company_name: string|null;
+  company_url: string|null;
+  booking_url: string|null;
+}
+
+export interface PerformanceDate { 
+  id: number;
+  datetime: Date;
+  duplicate_time: Date|null;
+}
+

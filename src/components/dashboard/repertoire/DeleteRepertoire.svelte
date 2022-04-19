@@ -25,12 +25,9 @@
   let repertoireData: RepertoireDesc[] = [];
 
   async function getRepertoireList() {
-    console.log('DeleteRepertoire: called getRepertoireList');
     await fetchData<RepertoireDesc[]>(`${process.env.GET_REPERTOIRE_LIST}`)
       .then(data => repertoireData = data)
       .catch(e => console.error(e));
-    
-    console.log(repertoireData)
   }
 
   // component may be a modal - notify parent to close modal and update 
@@ -43,7 +40,6 @@
   onMount(getRepertoireList);
 
   async function onSubmit(formData: RepertoireID) {
-    console.log('onSubmit', formData);
     try {
       const res = await fetch(
         `${hostname}${process.env.DELETE_COMPOSER}`, 
@@ -96,10 +92,10 @@
   <div class="form_container">
     <form on:submit={handleSubmit}>
       <Select 
-        id='repertoireID' 
+        id='repertoire' 
         label='Repertoire' 
         bind:value={$form.id} 
-        placeholder='Select composer'
+        placeholder='Select repertoire'
         errors={$errors}
         optKey='title'
         options={repertoireData}

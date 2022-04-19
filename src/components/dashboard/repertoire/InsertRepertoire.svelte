@@ -13,7 +13,10 @@
   import { mixed, object, number, boolean, string, SchemaOf } from 'yup';
   import { onMount } from 'svelte';
   import { csrfToken } from '../../stores';
+  import { createEventDispatcher } from 'svelte';
   import type { RepertoireItem, ComposerData } from '../../../utils/types';
+
+  export let modalOpen: boolean; // when form component is displayed as a modal
 
   // pass the csrf token to fetchOptions and use Object.assign to the default headers?
   const headers = {
@@ -43,11 +46,19 @@
         throw new Error('Error submitting form');
       }
       $formState.submitted = true;
+      updateHandler();
     } catch (e) {
       console.error(e);
       $formState.error = true;
     }
   }
+
+  // component may be a modal - notify parent to close modal and update 
+  const dispatch = createEventDispatcher();
+  function updateHandler() {
+		dispatch('updated');
+    modalOpen = false;
+	}
 
   const onUpdated = () => {
     getComposerList();
@@ -92,8 +103,9 @@
 
 </script>
 
-<h2>Add repertoire</h2>
-
+<h2 class:modalOpen>
+  Add repertoire
+</h2>
 {#if $formState.loading}
   <Loading />
 {:else if $formState.submitted}
@@ -143,10 +155,26 @@
         label='Repertoire list'
         bind:checked={$form.rep_list}
       />
-      <button type='submit'>
-        Submit
-      </button>
+      <div class="button_container">
+        <button type='submit'>
+          Submit
+        </button>
+      </div>
     </form>
   </div>
 {/if}
 
+<style>
+
+  /* conditionally remove padding if used as modal */
+  .modalOpen {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .button_container {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+</style>
