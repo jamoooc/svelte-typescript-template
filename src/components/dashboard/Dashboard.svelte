@@ -4,7 +4,6 @@
   import UpdateRepertoire from "./repertoire/UpdateRepertoire.svelte";
   import DeleteRepertoire from "./repertoire/DeleteRepertoire.svelte";
   import InsertPerformance from "./performance/InsertPerformance.svelte";
-  // import UpdatePerformance from "./performance/UpdatePerformance.svelte";
   import DeletePerformance from "./performance/DeletePerformance.svelte";
   import InsertPerformanceDate from "./performance/InsertPerformanceDate.svelte";
   import DeletePerformanceDate from "./performance/DeletePerformanceDate.svelte";
@@ -12,14 +11,12 @@
   import InsertReview from "./content/InsertReview.svelte";
   import UpdateReview from "./content/UpdateReview.svelte";
   import DeleteReview from "./content/DeleteReview.svelte";
-  // import UploadProfile from "./content/UploadProfile.svelte";
-  // import UploadImage from "./content/UploadImage.svelte";
+  import UploadImage from "./content/UploadImage.svelte";
 
   let tasks = {
     performances: { 
       add_performance: false,
       add_date: false,
-      // update_performance: false,
       delete_performance: false,
       delete_date: false
     },
@@ -32,9 +29,8 @@
       update_biography: false,
       add_review: false,
       update_review: false,
-      delete_review: false
-      // upload_profile: false,
-      // upload_image: false
+      delete_review: false,
+      upload_image: false
     }
   }
 
@@ -44,15 +40,13 @@
     delete_repertoire: DeleteRepertoire,
     add_performance: InsertPerformance,
     add_date: InsertPerformanceDate,
-    // update_performance: UpdatePerformance,
     delete_performance: DeletePerformance,
     delete_date: DeletePerformanceDate,
     update_biography: UpdateBiography,
     add_review: InsertReview,
     update_review: UpdateReview,
     delete_review: DeleteReview,
-    // upload_profile: UploadProfile,
-    // upload_image: UploadImage
+    upload_image: UploadImage
   }
   
   let selectedCategory = '';

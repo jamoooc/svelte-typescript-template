@@ -16,7 +16,7 @@ export type ImageSrcSet = {
 
 export interface GalleryImageSrcSet extends ImageSrcSet {
   id: number;
-  date: Date;
+  date: string; // Date
 }
 
 export type Biography = { 
