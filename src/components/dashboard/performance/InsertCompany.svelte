@@ -26,7 +26,6 @@
 	}
 
   async function onSubmit(formData: Company) {
-    console.log('onSubmit', formData);
     try {
       const res = await fetch(
         `${hostname}${process.env.INSERT_COMPANY}`, 
@@ -79,7 +78,7 @@
   </h3>
 {:else}
   <div class="form_container">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <Input 
         id='name' 
         bind:value={$form.name} 

@@ -8,7 +8,7 @@
   import fetchOptions from '../../../utils/fetchOptions';
   import hostname from '../../../utils/hostname';
   import { createForm } from '../../forms/form';
-  import { date, boolean, object, string, SchemaOf } from 'yup';
+  import { boolean, object, string, SchemaOf } from 'yup';
   import { csrfToken } from '../../stores';
   import type { Review } from '../../../utils/types';
 
@@ -19,7 +19,6 @@
   };
 
   async function onSubmit(formData: Omit<Review, "id">) {
-    console.log('onSubmit', formData);
     try {
       const res = await fetch(
         `${hostname}${process.env.INSERT_REVIEW}`, 
@@ -77,7 +76,7 @@
   </h3>
 {:else}
   <div class="form_container">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <Textarea 
         id='review' 
         bind:value={$form.review} 

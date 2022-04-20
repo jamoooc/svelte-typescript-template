@@ -43,7 +43,6 @@
   }
 
   async function onSubmit(formData: Review) {
-    console.log('onSubmit', formData);
     try {
       const res = await fetch(
         `${hostname}${process.env.UPDATE_REVIEW}`, 
@@ -103,7 +102,7 @@
   </h3>
 {:else}
   <div class="form_container">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <Select 
         id='id' 
         bind:value={$form.id} 

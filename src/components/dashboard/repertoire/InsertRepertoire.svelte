@@ -118,7 +118,7 @@
   </h3>
 {:else}
   <div class="form_container">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <Select 
         id='composer_id' 
         bind:value={$form.composer_id} 

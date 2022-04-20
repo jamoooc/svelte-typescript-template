@@ -38,7 +38,6 @@
   onMount(getComposerList);
 
   async function onSubmit(formData: LocationData) {
-    console.log('onSubmit', formData);
     try {
       const res = await fetch(
         `${hostname}${process.env.DELETE_LOCATION}`, 
@@ -89,7 +88,7 @@
   </h3>
 {:else}
   <div class="form_container">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <Select 
         id='id' 
         label='Location'

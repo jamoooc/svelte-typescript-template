@@ -104,7 +104,7 @@
         errors={$errors}
       />
       <Checkbox 
-        id='date' 
+        id='profile' 
         bind:checked={$form.profile} 
         errors={$errors}
       />

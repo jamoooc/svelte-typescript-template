@@ -124,7 +124,7 @@
   {/if}
 
   <div class="form_container">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <Input 
         id='title' 
         bind:value={$form.title} 

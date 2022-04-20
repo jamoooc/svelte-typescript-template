@@ -29,7 +29,6 @@
   onMount(getReviewList);
 
   const updateHandler = () => {
-   console.log('UPDATED')
     getReviewList();
   }
 
@@ -85,7 +84,7 @@
     </h3>
   {/if}
   <div class="form_container">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <Select 
         id='id' 
         bind:value={$form.id} 

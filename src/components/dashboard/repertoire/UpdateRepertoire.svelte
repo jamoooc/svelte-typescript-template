@@ -15,7 +15,6 @@
 
   interface UpdateRepertoireItem extends Omit<RepertoireItem, "composer_id"> {};
 
-  // pass the csrf token to fetchOptions and use Object.assign to the default headers?
   const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
@@ -65,7 +64,6 @@
     }
   }
 
-  // TODO: put these in the DB
   const repertoireTypes = [
     {
       id: 'concert',
@@ -116,7 +114,7 @@
   </h3>
 {:else}
   <div class="form_container">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <Select 
         id='id' 
         bind:value={$form.id} 

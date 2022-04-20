@@ -115,8 +115,6 @@
     }).format(date)
   };
 
-  $: console.log(performanceData)
-
 </script>
 
 <h3 class:modalOpen>

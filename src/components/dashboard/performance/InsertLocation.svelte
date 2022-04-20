@@ -26,7 +26,6 @@
 	}
 
   async function onSubmit(formData: Location) {
-    console.log('onSubmit', formData);
     try {
       const res = await fetch(
         `${hostname}${process.env.INSERT_LOCATION}`, 
@@ -77,7 +76,7 @@
   </h3>
 {:else}
   <div class="form_container">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <Input 
         id='location' 
         bind:value={$form.location} 

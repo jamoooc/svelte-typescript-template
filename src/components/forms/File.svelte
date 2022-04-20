@@ -7,8 +7,6 @@
   export let placeholder = null;
   export let errors = {};
 
-  $: console.log(files);
-
 </script>
 
 <label for={id}>{label}:</label>

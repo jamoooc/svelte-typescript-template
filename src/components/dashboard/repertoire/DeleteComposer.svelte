@@ -27,7 +27,7 @@
   let composerData: ComposerData[] = [];
 
   async function getComposerList() {
-    console.log('DeleteComposer: called getComposerList');
+
     await fetchData<ComposerData[]>(`${process.env.GET_COMPOSER_LIST}`)
       .then(data => composerData = data)
       .catch(e => console.error(e));
@@ -43,7 +43,6 @@
   onMount(getComposerList);
 
   async function onSubmit(formData: ComposerID) {
-    console.log('onSubmit', formData);
     try {
       const res = await fetch(
         `${hostname}${process.env.DELETE_COMPOSER}`, 
@@ -76,7 +75,6 @@
     handleSubmit
   } = createForm<ComposerID>(formFields, validationSchema, onSubmit);
 
-
 </script>
 
 <h3 class:modalOpen>
@@ -95,7 +93,7 @@
   </h3>
 {:else}
   <div class="form_container">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <Select 
         id='composerID' 
         bind:value={$form.id} 

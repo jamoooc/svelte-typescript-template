@@ -1,7 +1,7 @@
 <script lang="ts"> 
 
-  import Textarea from '../../forms/Textarea.svelte';
   import Loading from '../../Loading.svelte';
+  import Textarea from '../../forms/Textarea.svelte';
   import fetchOptions from '../../../utils/fetchOptions';
   import hostname from '../../../utils/hostname';
   import fetchData from "../../../utils/fetchData";
@@ -74,8 +74,8 @@
   </h3>
 {:else}
   <div class="form_container">
-    <form on:submit={handleSubmit}>
-     <Textarea 
+    <form on:submit|preventDefault={handleSubmit}>
+      <Textarea 
         id='biography' 
         bind:value={$form.text} 
         errors={$errors}
