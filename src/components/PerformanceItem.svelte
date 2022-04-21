@@ -6,7 +6,7 @@
   export let role: string | null;
   export let surname: string | null;
   export let datetimes: Array<string|null>;
-  export let duptimes: Array<string|null>;
+  export let duplicate_times: Array<string|null>;
   export let location: string | null;
   export let company_name: string | null;
   export let company_url: string | null;
@@ -22,12 +22,12 @@
   };
 
   const dates = [];
-  if (datetimes.length === duptimes.length) {
+  if (datetimes.length === duplicate_times.length) {
     for (let i = 0; i < datetimes.length; i++) {
       const date = new Date(datetimes[i]);
       if (date.toString() !== "Invalid Date") {
         const dateStr = date.toLocaleDateString("en-GB", dateOpts);
-        const dupTime = duptimes[i] ? ` + ${duptimes[i]}` : '';
+        const dupTime = duplicate_times[i] ? ` + ${duplicate_times[i].substring(0,5)}` : '';
         dates.push(`${dateStr}${dupTime}`);
       } else {
         dates.push(null);

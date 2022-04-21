@@ -90,9 +90,8 @@ export interface LocationData extends Location {
 }
 
 export type Performance = {
-  // performance_id ?
   datetimes: Array<string|null>;
-  duptimes: Array<string|null>;
+  duplicate_times: Array<string|null>;
   title: string|null;
   work_title: string|null;
   role: string;
