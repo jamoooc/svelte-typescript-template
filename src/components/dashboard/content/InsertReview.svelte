@@ -97,8 +97,7 @@
       />
       <Datetime 
         id='date' 
-        bind:value={$form.date} 
-        placeholder='Enter date'
+        bind:value={$form.date}
         errors={$errors}
       />
       <Checkbox 

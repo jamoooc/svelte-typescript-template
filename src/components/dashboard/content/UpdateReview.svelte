@@ -35,9 +35,12 @@
     if (reviewID) {
       const idx = reviewData.findIndex(e => e.id === reviewID);
       if (idx >= 0) {
-        $form.review = reviewData[idx].review
-        $form.reviewer = reviewData[idx].reviewer
-        $form.work = reviewData[idx].work
+        $form.review = reviewData[idx].review;
+        $form.reviewer = reviewData[idx].reviewer;
+        $form.work = reviewData[idx].work;
+        console.log(reviewData[idx].date)
+        $form.date = reviewData[idx].date.substring(0,16);
+        $form.display = reviewData[idx].display;
       }
     }
   }
@@ -133,8 +136,7 @@
       />
       <Datetime 
         id='date' 
-        bind:value={$form.date} 
-        placeholder='Enter date'
+        bind:value={$form.date}
         errors={$errors}
       />
       <Checkbox 

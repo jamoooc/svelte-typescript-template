@@ -39,7 +39,6 @@ export function createForm<T>(initialValues: T, validationSchema: SchemaOf<T>, o
     }
     form.set({ ...newForm });
     errors.set({ ...newForm });
-console.log(form, errors);
     await onSubmit(values);
   }
 
