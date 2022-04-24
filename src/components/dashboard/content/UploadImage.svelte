@@ -74,15 +74,16 @@
 
 {#if $formState.loading}
   <Loading />
-{:else if $formState.submitted}
-  <h3>
-    Submitted
-  </h3>
-{:else if $formState.error}
-  <h3>
-    Error submitting form
-  </h3>
 {:else}
+  {#if $formState.submitted}
+    <h3>
+      Submitted
+    </h3>
+    {:else if $formState.error}
+    <h3>
+      Error submitting form
+    </h3>
+  {/if}
   <div class="form_container">
     <form on:submit|preventDefault={handleSubmit} enctype="multipart/form-data">
       <File 

@@ -38,7 +38,7 @@
   async function onSubmit(formData: PerformanceID) {
     try {
       const res = await fetch(
-        `${hostname}${process.env.DELETE_LOCATION}`, 
+        `${hostname}${process.env.DELETE_PERFORMANCE_DATE}`, 
         fetchOptions(formData, 'DELETE', headers)
       );
       await res.json();
@@ -75,15 +75,16 @@
 
 {#if $formState.loading}
   <Loading />
-{:else if $formState.submitted}
-  <h3>
-    Submitted
-  </h3>
-{:else if $formState.error}
-  <h3>
-    Error submitting form
-  </h3>
 {:else}
+  {#if $formState.submitted}
+    <h3>
+      Submitted
+    </h3>
+    {:else if $formState.error}
+    <h3>
+      Error submitting form
+    </h3>
+  {/if}
   <div class="form_container">
     <form on:submit|preventDefault={handleSubmit}>
       <Select 

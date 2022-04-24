@@ -65,21 +65,22 @@
 
   {#if $formState.loading}
     <Loading />
-  {:else if $formState.submitted}
-    <h2>
-      Form submitted
-    </h2>
-    <p>
-      Thank you, I'll be in touch as soon as possible.
-    </p>
-  {:else if $formState.error}
-    <h2>
-      Error submitting form
-    </h2>
-    <p>
-      The error has been logged. Please email directly.
-    </p>
   {:else}
+    {#if $formState.submitted}
+      <h2>
+        Form submitted
+      </h2>
+      <p>
+        Thank you, I'll be in touch as soon as possible.
+      </p>
+    {:else if $formState.error}
+      <h2>
+        Error submitting form
+      </h2>
+      <p>
+        The error has been logged. Please email directly.
+      </p>
+    {/if}
     <div class="form_container">
       <form on:submit={handleSubmit}>
         <Input 

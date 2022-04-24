@@ -23,7 +23,7 @@
   let locationData: LocationData[] = [];
 
   async function getComposerList() {
-    await fetchData<LocationData[]>(`${process.env.GET_LOCATION_LIST}`)
+    await fetchData<LocationData[]>(`${process.env.GET_LOCATION_LIST}`, { headers })
       .then(data => locationData = data)
       .catch(e => console.error(e));
   }
@@ -78,15 +78,16 @@
 
 {#if $formState.loading}
   <Loading />
-{:else if $formState.submitted}
-  <h3>
-    Submitted
-  </h3>
-{:else if $formState.error}
-  <h3>
-    Error submitting form
-  </h3>
 {:else}
+  {#if $formState.submitted}
+    <h3>
+      Submitted
+    </h3>
+    {:else if $formState.error}
+    <h3>
+      Error submitting form
+    </h3>
+  {/if}
   <div class="form_container">
     <form on:submit|preventDefault={handleSubmit}>
       <Select 

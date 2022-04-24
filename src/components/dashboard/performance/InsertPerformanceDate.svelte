@@ -90,10 +90,8 @@
 
   const validationSchema: SchemaOf<PerformanceDateData> = object({
     performance_id: number().positive('performance is a required field').required(),
-    // datetime: date().required(),
-    // duplicate_time: date().notRequired()
     datetime: string().min(2).max(128).required(),
-    duplicate_time: string().nullable().min(5).max(5).notRequired(),
+    duplicate_time: string().nullable().notRequired(),
   });
 
   const {
@@ -146,11 +144,16 @@
 
 {#if $formState.loading}
   <Loading />
-{:else if $formState.error}
-  <h3>
-    Error submitting form
-  </h3>
-{:else}
+{:else}   
+  {#if $formState.submitted}
+    <h3>
+      Submitted
+    </h3>
+    {:else if $formState.error}
+    <h3>
+      Error submitting form
+    </h3>
+  {/if}
   <div class="form_container">
     <form on:submit={handleSubmit}>
       <Select 
