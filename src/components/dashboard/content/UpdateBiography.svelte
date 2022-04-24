@@ -21,7 +21,7 @@
   onMount(getBiography);
 
   async function getBiography() {
-    await fetchData<Biography>(`${process.env.GET_BIOGRAPHY}`)
+    await fetchData<Biography>(`${process.env.GET_BIOGRAPHY}`, { headers })
       .then(bio => $form = Object.assign($form, bio))
       .catch(e => console.error(e));
   }

@@ -31,7 +31,7 @@
   let performanceData: PerformanceData[] = [];
 
   async function getPerformanceList() {
-    await fetchData<PerformanceData[]>(`${process.env.GET_PERFORMANCE_LIST}`)
+    await fetchData<PerformanceData[]>(`${process.env.GET_PERFORMANCE_LIST}`, { headers })
       .then(data => performanceData = data)
       .catch(e => console.error(e));
   }

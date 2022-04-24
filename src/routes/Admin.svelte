@@ -7,7 +7,9 @@
 </script>
 
 <div class="content_container">
-  <h1>{!$adminAuthenticated ? 'Login' : 'Dashboard'}</h1>
+  <h1>
+    {!$adminAuthenticated ? 'Login' : 'Dashboard'}
+  </h1>
   {#if !$adminAuthenticated} 
     <Login />
   {:else}

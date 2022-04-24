@@ -25,7 +25,7 @@
   let repertoireData: RepertoireDesc[] = [];
 
   async function getRepertoireList() {
-    await fetchData<RepertoireDesc[]>(`${process.env.GET_REPERTOIRE_LIST}`)
+    await fetchData<RepertoireDesc[]>(`${process.env.GET_REPERTOIRE_LIST}`, { headers })
       .then(data => repertoireData = data)
       .catch(e => console.error(e));
   }

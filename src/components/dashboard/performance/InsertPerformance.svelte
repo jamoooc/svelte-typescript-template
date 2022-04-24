@@ -35,21 +35,21 @@
 
   let repertoireData: RepertoireDesc[] = [];
   async function getRepertoireData() {
-    await fetchData<RepertoireDesc[]>(`${process.env.GET_REPERTOIRE_LIST}`)
+    await fetchData<RepertoireDesc[]>(`${process.env.GET_REPERTOIRE_LIST}`, { headers })
       .then(data => repertoireData = data)
       .catch(e => console.error(e));
   }
 
   let companyData: CompanyData[] = [];
   async function getCompanyData() {
-    await fetchData<CompanyData[]>(`${process.env.GET_COMPANY_LIST}`)
+    await fetchData<CompanyData[]>(`${process.env.GET_COMPANY_LIST}`, { headers })
       .then(data => companyData = data)
       .catch(e => console.error(e));
   }
 
   let locationData: LocationData[] = [];
   async function getLocationData() {
-    await fetchData<LocationData[]>(`${process.env.GET_LOCATION_LIST}`)
+    await fetchData<LocationData[]>(`${process.env.GET_LOCATION_LIST}`, { headers })
       .then(data => locationData = data)
       .catch(e => console.error(e));
   }

@@ -42,14 +42,14 @@
 
   let performanceData: PerformanceData[] = [];
   async function getPerformanceList() {
-    await fetchData<PerformanceData[]>(`${process.env.GET_PERFORMANCE_LIST}`)
+    await fetchData<PerformanceData[]>(`${process.env.GET_PERFORMANCE_LIST}`, { headers })
       .then(data => performanceData = data)
       .catch(e => console.error(e));
   }
 
   let existingPerformanceDates: PerformanceDate[] = [];
   async function getPerformanceDatesList(id: number) {
-    await fetchData<PerformanceDate[]>(`${process.env.GET_PERFORMANCE_DATE_LIST}/${id}`)
+    await fetchData<PerformanceDate[]>(`${process.env.GET_PERFORMANCE_DATE_LIST}/${id}`, { headers })
       .then(data => existingPerformanceDates = data)
       .catch(e => console.error(e));
   }

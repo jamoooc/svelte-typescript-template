@@ -14,7 +14,7 @@
     perf = fetchData<Performance[]>(`${process.env.GET_PERFORMANCE}`);
 
   })
-$: console.log(perf)
+
 </script>
 
 <div class="content_container">

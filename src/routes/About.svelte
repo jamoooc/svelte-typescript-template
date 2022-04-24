@@ -48,7 +48,10 @@
     </p>
 
   {:catch error}
-    <Error {error} />
+    {console.error(error)}
+    <div>
+      <p>No biography found.</p>
+    </div>
   {/await}
 </div>
   

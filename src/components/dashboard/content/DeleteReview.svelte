@@ -21,7 +21,7 @@
 
   let reviewData: Review[] = [];
   async function getReviewList() {
-    await fetchData<Review[]>(`${process.env.GET_REVIEW_LIST}`)
+    await fetchData<Review[]>(`${process.env.GET_REVIEW_LIST}`, { headers })
       .then(data => reviewData = data)
       .catch(e => console.error(e));
   }

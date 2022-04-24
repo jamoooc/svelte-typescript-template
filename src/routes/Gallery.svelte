@@ -1,7 +1,6 @@
 <script type="ts">
 
   import fetchData from "../utils/fetchData.js";
-  import ErrorMessage from '../components/Error.svelte'
   import ImageLoader from '../components/images/ImageLoader.svelte';
   import Loading from "../components/Loading.svelte";
   import Modal from '../components/GalleryModal.svelte';
@@ -64,7 +63,9 @@
 <div class="gallery_container">
   {#if !galleryData}
     {#if error} 
-      <ErrorMessage {error}/>
+    <div class="content_container">
+      <p>No images found.</p>
+    </div>
     {:else}
       <Loading />
     {/if}

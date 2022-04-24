@@ -30,7 +30,7 @@
   let composerData: ComposerData[] = [];
 
   async function getComposerList() {
-    await fetchData<ComposerData[]>(`${process.env.GET_COMPOSER_LIST}`)
+    await fetchData<ComposerData[]>(`${process.env.GET_COMPOSER_LIST}`, { headers })
       .then(data => composerData = data)
       .catch(e => console.error(e));
   }

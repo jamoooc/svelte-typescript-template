@@ -26,13 +26,13 @@
   onMount(getRepertoireList);
 
   async function getRepertoireList() {
-    await fetchData<UpdateRepertoireItem[]>(`${process.env.GET_REPERTOIRE_LIST}`)
+    await fetchData<UpdateRepertoireItem[]>(`${process.env.GET_REPERTOIRE_LIST}`, { headers })
       .then(data => repertoireItem = data)
       .catch(e => console.error(e));
   }
 
   async function getRepertoireItem(id: number) {
-    await fetchData<RepertoireItem>(`${process.env.GET_REPERTOIRE_ITEM}/${id}`)
+    await fetchData<RepertoireItem>(`${process.env.GET_REPERTOIRE_ITEM}/${id}`, { headers })
       .then(rep => $form = Object.assign($form, rep))
       .catch(e => console.error(e));
   }

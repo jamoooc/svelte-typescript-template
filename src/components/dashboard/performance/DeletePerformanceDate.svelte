@@ -28,7 +28,7 @@
   let performanceDateData: PerformanceDate[] = [];
 
   async function getPerformanceDateList() {
-    await fetchData<PerformanceDate[]>(`${process.env.GET_PERFORMANCE_DATE_LIST}`)
+    await fetchData<PerformanceDate[]>(`${process.env.GET_PERFORMANCE_DATE_LIST}`, { headers })
       .then(data => performanceDateData = data)
       .catch(e => console.error(e));
   }

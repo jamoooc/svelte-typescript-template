@@ -6,8 +6,10 @@ import hostname from '../utils/hostname.js';
  * @returns {Promise<T>}
  */
 
-export default async function fetchData<T>(path: string): Promise<T> {
-  return fetch(`${hostname}${path}`)
+export default async function fetchData<T>(
+  path: string, init: RequestInit = null
+): Promise<T> {
+  return fetch(`${hostname}${path}`, init)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText);
