@@ -6,6 +6,7 @@
     csrfToken } from "../../components/stores";
   import fetchOptions from '../../utils/fetchOptions';
   import Input from '../forms/Input.svelte';
+  import Password from '../forms/Password.svelte';
   import hostname from '../../utils/hostname';
   import { createForm } from '../forms/form';
   import { object, string, SchemaOf } from 'yup';
@@ -76,7 +77,7 @@
         bind:value={$form.username} 
         errors={$errors}
       />
-      <Input 
+      <Password 
         id='password' 
         bind:value={$form.password} 
         errors={$errors}
