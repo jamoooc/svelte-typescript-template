@@ -46,7 +46,7 @@
 
   const validationSchema: SchemaOf<LoginCredentials> = object({
     username: string().min(2).max(32).required(),
-    password: string().email().required()
+    password: string().min(2).max(32).required()
   });
 
   const {
@@ -56,21 +56,21 @@
     handleSubmit
   } = createForm<LoginCredentials>(loginFields, validationSchema, onSubmit);
 
-
 </script>
 
 {#if $formState.loading}
   <Loading />
-{:else if $formState.error}
-  <h2>
-    Authentication error
-  </h2>
-  <p>
-    The error has been logged. Please try again.
-  </p>
 {:else}
+  {#if $formState.error}
+    <h2>
+      Authentication error
+    </h2>
+    <p>
+      The error has been logged. Please try again.
+    </p>
+  {/if}
   <div classname="form_container">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <Input 
         id='username' 
         bind:value={$form.username} 
@@ -81,6 +81,9 @@
         bind:value={$form.password} 
         errors={$errors}
       />
+      <button type='submit'>
+        Submit
+      </button>
     </form>
   </div>
 {/if}

@@ -8,10 +8,9 @@
 
 <div class="content_container">
   <h1>{!$adminAuthenticated ? 'Login' : 'Dashboard'}</h1>
-  <!-- {#if !$adminAuthenticated} 
+  {#if !$adminAuthenticated} 
     <Login />
   {:else}
-    <Dashboard /> -->
-  <!-- {/if} -->
-  <Dashboard />
+    <Dashboard />
+  {/if}
 </div>
