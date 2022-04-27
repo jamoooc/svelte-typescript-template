@@ -35,6 +35,12 @@
     }
   }
 
+  // protocol is required for the anchor link
+  if (booking_url && !booking_url.match(/^https:\/\/.*/)) {
+    console.log('match ')
+    booking_url = 'https://' + booking_url;
+  }
+
 </script>
 
 <div class="wrapper">
@@ -82,7 +88,7 @@
   </div>
   <div class="right_col">
     {#if booking_url}
-      <a class="button_container" href={booking_url}>
+      <a class="button_container" target="_blank" rel="external" href={booking_url}>
         <div class="button">
           <span class="info_text">tickets / info</span>
         </div>
