@@ -4,6 +4,8 @@
   import Select from '../../forms/Select.svelte';
   import Datetime from '../../forms/Datetime.svelte';
   import Loading from '../../Loading.svelte';
+  import InsertLocation from '../performance/InsertLocation.svelte';
+  import DeleteLocation from '../performance/DeleteLocation.svelte';
   import fetchOptions from '../../../utils/fetchOptions';
   import hostname from '../../../utils/hostname';
   import fetchData from "../../../utils/fetchData";
@@ -11,8 +13,7 @@
   import { number, string, object, SchemaOf } from 'yup';
   import { csrfToken } from '../../stores';
   import { onMount } from 'svelte';
-  import type { PerformanceDate } from '../../../utils/types';
-
+  import type { PerformanceDate, LocationData } from '../../../utils/types';
 
   interface PerformanceData {
     id: number;
@@ -20,17 +21,16 @@
     description: string|null;
     repertoire_id: number;
     company_id: number;
-    location_id: number;
     booking_url: string|null;
     deleted_at: Date|null; 
   }
 
   interface PerformanceDateData {
     performance_id: number;
+    location_id: number;
     datetime: string; // TODO: use date
     duplicate_time: string|null;
   }
-
 
   export let modalOpen: boolean;
 
@@ -54,17 +54,23 @@
       .catch(e => console.error(e));
   }
 
+  let locationData: LocationData[] = [];
+  async function getLocationData() {
+    await fetchData<LocationData[]>(`${process.env.GET_LOCATION_LIST}`, { headers })
+      .then(data => locationData = data)
+      .catch(e => console.error(e));
+  }
+
   onMount(async () => {
     getPerformanceList();
+    getLocationData();
   });
 
   const onSelected = (id) => getPerformanceDatesList(id);
+  const onLocationUpdated = () => getLocationData();
 
   async function onSubmit(formData: PerformanceDateData) {
-    console.log('onSubmit', formData);
     const data = { ...formData, datetime: new Date(formData.datetime).toISOString()}
-    console.log('onSubmit', data);
-
     try {
       const res = await fetch(
         `${hostname}${process.env.INSERT_PERFORMANCE_DATE}`, 
@@ -84,12 +90,14 @@
 
   const formFields: PerformanceDateData = {
     performance_id: 0,
+    location_id: 0,
     datetime: null,
     duplicate_time: null
   }
 
   const validationSchema: SchemaOf<PerformanceDateData> = object({
     performance_id: number().positive('performance is a required field').required(),
+    location_id: number().positive('location is a required field').required(),
     datetime: string().min(2).max(128).required(),
     duplicate_time: string().nullable().notRequired(),
   });
@@ -165,6 +173,18 @@
         placeholder='Select performance'
         errors={$errors}
         on:selected={() => onSelected($form.performance_id)}
+      />
+      <Select 
+        id='location_id' 
+        label='Location'
+        bind:value={$form.location_id} 
+        optKey='location'
+        options={locationData}
+        placeholder='Select location'
+        errors={$errors}
+        insertModal={InsertLocation}
+        deleteModal={DeleteLocation}
+        on:updated={onLocationUpdated}
       />
       <Datetime 
         id='datetime'

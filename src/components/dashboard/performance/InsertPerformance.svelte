@@ -3,8 +3,6 @@
   import Input from '../../forms/Input.svelte';
   import Select from '../../forms/Select.svelte';
   import Loading from '../../Loading.svelte';
-  import InsertLocation from '../performance/InsertLocation.svelte';
-  import DeleteLocation from '../performance/DeleteLocation.svelte';
   import InsertCompany from '../performance/InsertCompany.svelte';
   import DeleteCompany from '../performance/DeleteCompany.svelte';
   import InsertRepertoire from '../repertoire/InsertRepertoire.svelte';
@@ -16,13 +14,12 @@
   import { string, number, object, SchemaOf } from 'yup';
   import { csrfToken } from '../../stores';
   import { onMount } from 'svelte';
-  import type { RepertoireDesc, CompanyData, LocationData } from '../../../utils/types';
+  import type { RepertoireDesc, CompanyData } from '../../../utils/types';
 
   interface PerformanceData {
     title: string;
     description: string|null;
     repertoire_id: number|null;
-    location_id: number;
     company_id: number;
     booking_url: string|null;
   }
@@ -47,21 +44,12 @@
       .catch(e => console.error(e));
   }
 
-  let locationData: LocationData[] = [];
-  async function getLocationData() {
-    await fetchData<LocationData[]>(`${process.env.GET_LOCATION_LIST}`, { headers })
-      .then(data => locationData = data)
-      .catch(e => console.error(e));
-  }
-
   const onRepertoireUpdated = () => getRepertoireData();
   const onCompanyUpdated = () => getCompanyData();
-  const onLocationUpdated = () => getLocationData();
 
   onMount(async () => {
     getRepertoireData();
     getCompanyData();
-    getLocationData();
   });
 
   async function onSubmit(formData: PerformanceData) {
@@ -76,8 +64,6 @@
         throw new Error('Error submitting form');
       }
       $formState.submitted = true;
-      
-      // TODO: redirect to add date, pre select new perf?
     } catch (e) {
       console.error(e);
       $formState.error = true;
@@ -88,7 +74,6 @@
     title: null,
     description: null,
     repertoire_id: 0,
-    location_id: 0,
     company_id: 0,
     booking_url: null
   }
@@ -97,7 +82,6 @@
     title: string().nullable().min(2).max(128).notRequired(),
     description: string().nullable().min(2).max(128).notRequired(),
     repertoire_id: number().positive('repertoire is a required field').required(),
-    location_id: number().positive('location is a required field').required(),
     company_id: number().positive('company is a required field').required(),
     booking_url: string().nullable().notRequired() // https://stackoverflow.com/questions/61634973/yup-validation-of-website-using-url-very-strict
   });
@@ -163,18 +147,6 @@
         insertModal={InsertCompany}
         deleteModal={DeleteCompany}
         on:updated={onCompanyUpdated}
-      />
-      <Select 
-        id='location_id' 
-        label='Location'
-        bind:value={$form.location_id} 
-        optKey='location'
-        options={locationData}
-        placeholder='Select location'
-        errors={$errors}
-        insertModal={InsertLocation}
-        deleteModal={DeleteLocation}
-        on:updated={onLocationUpdated}
       />
       <Input 
         id='booking_url'
