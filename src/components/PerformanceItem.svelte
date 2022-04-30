@@ -7,7 +7,7 @@
   export let surname: string | null;
   export let datetimes: Array<string|null>;
   export let duplicate_times: Array<string|null>;
-  export let location: string | null;
+  export let locations: string[] | null;
   export let company_name: string | null;
   export let company_url: string | null;
   export let booking_url: string | null;
@@ -34,6 +34,8 @@
       }
     }
   }
+
+  console.log(dates, locations)
 
   // protocol is required for the anchor link
   if (booking_url && !booking_url.match(/^https:\/\/.*/)) {
@@ -68,10 +70,15 @@
       <h4 class="role_text">{role}</h4>
     {/if}
 
-    {#each dates as date}
-      <p class="date_text">
-        {date}
-      </p>
+    {#each dates as date, idx}
+      <li class="date_list">
+        <p class="location">
+          {locations[idx] ? locations[idx] : ''}
+        </p>
+        <p class="date_text">
+          {date}
+        </p>
+      </li>
     {:else} 
       <p class="missing_date">
         TBC
@@ -82,9 +89,6 @@
       <p class="description">{description}</p>
     {/if}
 
-    {#if location}
-      <p class="location">{location}</p>
-    {/if}
   </div>
   <div class="right_col">
     {#if booking_url}
@@ -139,17 +143,6 @@
     }
   }
 
-  .description {
-    padding: 0rem 0 0.2rem 1rem;
-    font-weight: lighter;
-    font-size: small;
-  }
-
-  .location {
-    padding: 0.5rem 0 0.5rem 1rem;
-    font-size: medium;
-  }
-
   .button_container {
     position: relative;
     top: 35%;
@@ -180,9 +173,25 @@
     color: rgba(93, 93, 93, 0.8);
   }
 
+  .description {
+    padding: 0rem 0 0.2rem 1rem;
+    font-weight: lighter;
+    font-size: small;
+  }
+
+  .location {
+    padding: 0.1rem 0 0 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .date_list {
+    list-style: none;
+  }
+
   .date_text {
     font-size: 0.8rem;
     padding-left: 1rem;
+    padding-bottom: 0.5rem;
     color: rgba(93, 93, 93, 0.8);
   }
 

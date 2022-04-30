@@ -97,7 +97,7 @@ export type Performance = {
   role: string;
   description: string|null;
   surname: string;
-  location: string;
+  locations: string[]|null;
   company_name: string|null;
   company_url: string|null;
   booking_url: string|null;
