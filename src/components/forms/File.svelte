@@ -4,6 +4,7 @@
   export let name: string = id;
   export let label: string = `${name[0].toUpperCase()}${name.substring(1)}`;
   export let files: FileList;
+  export let accept: string ='image/*';
   export let placeholder = null;
   export let errors = {};
 
@@ -15,7 +16,7 @@
   {name}
   {placeholder}
   type="file"
-  accept="image/*" 
+  accept={accept}
   bind:files 
 />
 

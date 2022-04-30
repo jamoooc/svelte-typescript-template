@@ -12,6 +12,7 @@
   import UpdateReview from "./content/UpdateReview.svelte";
   import DeleteReview from "./content/DeleteReview.svelte";
   import UploadImage from "./content/UploadImage.svelte";
+  import UploadProgramme from "./programme/UploadProgramme.svelte";
 
   let tasks = {
     performances: { 
@@ -30,7 +31,8 @@
       add_review: false,
       update_review: false,
       delete_review: false,
-      upload_image: false
+      upload_image: false,
+      upload_programme: false
     }
   }
 
@@ -46,7 +48,8 @@
     add_review: InsertReview,
     update_review: UpdateReview,
     delete_review: DeleteReview,
-    upload_image: UploadImage
+    upload_image: UploadImage,
+    upload_programme: UploadProgramme
   }
   
   let selectedCategory = '';
