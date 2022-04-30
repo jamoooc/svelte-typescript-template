@@ -243,7 +243,7 @@
       margin: 4rem 10rem 0 10rem;
     }
     h2 {
-      margin: 1rem 0 0 10rem;
+      margin: 1rem 0 4rem 10rem;
     }
   }
 
