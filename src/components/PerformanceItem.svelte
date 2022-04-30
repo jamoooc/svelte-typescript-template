@@ -1,5 +1,5 @@
 <script lang="ts">
-
+  
   export let title: string | null;
   export let description: string | null;
   export let work_title: string | null;
@@ -21,21 +21,31 @@
     minute: 'numeric'
   };
 
-  const dates = [];
-  if (datetimes.length === duplicate_times.length) {
-    for (let i = 0; i < datetimes.length; i++) {
+  interface LocationDates {
+    [location: string]: string[];
+  }
+  
+  // create an object with locations and an array of formatted dates
+  let dates: LocationDates = {};
+  if (datetimes.length === duplicate_times.length && datetimes.length === locations.length) {
+    dates = locations.reduce<LocationDates>((a,c,i) => {
+      let datetime = '';
       const date = new Date(datetimes[i]);
       if (date.toString() !== "Invalid Date") {
         const dateStr = date.toLocaleDateString("en-GB", dateOpts);
         const dupTime = duplicate_times[i] ? ` + ${duplicate_times[i].substring(0,5)}` : '';
-        dates.push(`${dateStr}${dupTime}`);
-      } else {
-        dates.push(null);
+        datetime = `${dateStr}${dupTime}`;
       }
-    }
+      if (datetime) {
+        if (c in a) {
+          a[c].push(datetime);
+        } else {
+          a[c] = [ datetime ];
+        }
+      }
+      return a;
+    }, {})
   }
-
-  console.log(dates, locations)
 
   // protocol is required for the anchor link
   if (booking_url && !booking_url.match(/^https:\/\/.*/)) {
@@ -70,20 +80,26 @@
       <h4 class="role_text">{role}</h4>
     {/if}
 
-    {#each dates as date, idx}
-      <li class="date_list">
-        <p class="location">
-          {locations[idx] ? locations[idx] : ''}
-        </p>
-        <p class="date_text">
-          {date}
-        </p>
-      </li>
-    {:else} 
-      <p class="missing_date">
-        TBC
-      </p>
-    {/each}
+    {#if Object.keys(dates).length}
+      <ul>
+        {#each Object.entries(dates) as [location, dateList] }
+          <li class="date_list">
+            <p class="location">
+              {location}
+            </p>
+            {#each dateList as date}
+              <p class="date_text">
+                {date}
+              </p>
+            {/each}
+          </li>
+        {:else} 
+          <p class="missing_date">
+            TBC
+          </p>
+        {/each}
+      </ul>
+    {/if}
 
     {#if description}
       <p class="description">{description}</p>
@@ -180,7 +196,7 @@
   }
 
   .location {
-    padding: 0.1rem 0 0 0.5rem;
+    padding: 0.5rem 0 0 0.5rem;
     font-size: 0.9rem;
   }
 
@@ -191,13 +207,11 @@
   .date_text {
     font-size: 0.8rem;
     padding-left: 1rem;
-    padding-bottom: 0.5rem;
     color: rgba(93, 93, 93, 0.8);
   }
 
   .role_text {
     font-size: 1rem;
-    padding-bottom: 0.3rem;
     padding-left: 1rem;
     color: rgba(93, 93, 93, 0.8);
   }
@@ -246,6 +260,11 @@
 
   a {
     padding: 0;
+    margin: 0;
+  }
+
+  ul {
+    padding: 0 0 0.5rem 0;
     margin: 0;
   }
 
