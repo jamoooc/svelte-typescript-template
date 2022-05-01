@@ -3,17 +3,32 @@
   import File from '../../forms/File.svelte';
   import Loading from '../../Loading.svelte';
   import hostname from '../../../utils/hostname';
+  import fetchData from "../../../utils/fetchData";
   import { createForm } from '../../forms/form';
   import { mixed, object, SchemaOf } from 'yup';
   import { csrfToken } from '../../stores';
+  import { onMount } from 'svelte';
 
   interface ProgrammeUpload {
     files: any; // TODO: FileList|null - find correct validator for FileList type
   }
 
+  interface ProgrammeData {
+    programmes: string[];
+  }
+
   const headers = {
     "csrf_token": $csrfToken
   };
+
+  let programmeList: ProgrammeData[] = [];
+  async function getProgrammeList() {
+    await fetchData<ProgrammeData[]>(`${process.env.GET_PROGRAMME_LIST}`, { headers })
+      .then(data => programmeList = data)
+      .catch(e => console.error(e));
+  }
+
+  onMount(getProgrammeList);
 
   async function onSubmit(formData: ProgrammeUpload) {
 
@@ -30,6 +45,7 @@
         throw new Error('Error submitting form');
       }
       $formState.submitted = true;
+      getProgrammeList();
     } catch (e) {
       console.error(e);
       $formState.error = true;
@@ -61,6 +77,21 @@
   <Loading />
 {:else}
   
+  {#if programmeList}
+    <h3>
+      Available programmes
+    </h3>
+    <ul>
+      {#each programmeList as programme}
+        <li>
+          <p>
+            {programme}
+          </p>
+        </li>
+      {/each}
+    </ul>
+  {/if}
+
   {#if $formState.submitted}
     <h3>
       Submitted
