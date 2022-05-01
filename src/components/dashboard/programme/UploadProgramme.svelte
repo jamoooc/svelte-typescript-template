@@ -14,7 +14,7 @@
   }
 
   interface ProgrammeData {
-    programmes: string[];
+    programmes: string;
   }
 
   const headers = {
@@ -28,7 +28,25 @@
       .catch(e => console.error(e));
   }
 
+  let qrcode: string = '';
+  async function getQRCode(id: ProgrammeData) {
+    await fetchData<string>(`${process.env.GET_QR_CODE}/${id}`, { headers })
+      .then(data => qrcode = data)
+      .catch(e => console.error(e));
+  }
+
   onMount(getProgrammeList);
+
+  let modalOpen = false;
+  function toggleQRModal(id: ProgrammeData) {
+    if (!modalOpen) {
+      getQRCode(id) 
+    } else {
+      qrcode = ''
+    } 
+    modalOpen = !modalOpen;
+  } 
+
 
   async function onSubmit(formData: ProgrammeUpload) {
 
@@ -76,21 +94,6 @@
 {#if $formState.loading}
   <Loading />
 {:else}
-  
-  {#if programmeList}
-    <h3>
-      Available programmes
-    </h3>
-    <ul>
-      {#each programmeList as programme}
-        <li>
-          <p>
-            {programme}
-          </p>
-        </li>
-      {/each}
-    </ul>
-  {/if}
 
   {#if $formState.submitted}
     <h3>
@@ -102,7 +105,37 @@
     </h3>
   {/if}
 
+  {#if modalOpen}
+    <div class="qr_modal">
+      {#if qrcode}
+        <img src={qrcode} alt="" />
+      {:else}
+        <Loading />
+      {/if}
+    </div>
+  {/if}
+
   <div class="form_container">
+    {#if programmeList}
+      <h3>
+        Available programmes
+      </h3>
+      <ul>
+        {#each programmeList as programme}
+          <li>
+            <p>
+              {programme}
+              <button 
+                on:click|preventDefault={() => toggleQRModal(programme)} 
+                class="qr_button"
+              >
+                QR
+              </button>
+            </p>
+          </li>
+        {/each}
+      </ul>
+    {/if}
     <form on:submit|preventDefault={handleSubmit} enctype="multipart/form-data">
       <File 
         id='files' 
@@ -119,3 +152,20 @@
     </form>
   </div>
 {/if}
+
+<style>
+
+  .qr_button {
+    width: 50px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    float: right;
+  }
+
+  .qr_modal {
+    height: 150px;
+  }
+
+</style>
